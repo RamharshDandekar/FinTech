@@ -8,6 +8,8 @@ import { CheckCircleOutline, ErrorOutline } from '@mui/icons-material';
 import Navbar from '../components/layout/Navbar';
 import { useState } from 'react';
 
+const backend_url = import.meta.env.VITE_BACKEND_URL;
+
 const PDFRiskAnalysisPage = () => {
     const [analysisResults, setAnalysisResults] = useState(null);
     const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -21,8 +23,6 @@ const PDFRiskAnalysisPage = () => {
         setAnalysisError(null);
         setAnalysisResults(null);
         setAnalysisSuccess(false);
-        const backend_url = process.env.VITE_BACKEND_URL;
-        console.log("Backend URL value:", backend_url);
 
         try {
             const formData = new FormData();
