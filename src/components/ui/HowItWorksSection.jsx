@@ -30,6 +30,11 @@ function HowItWorksSection() {
                         title="Get AI-Powered Advice"
                         description="Receive personalized financial guidance, investment recommendations, and actionable insights from our AI assistant."
                     />
+                    <FeatureCard
+                        icon={<ChartBarSquareIconOutline className="w-6 h-6" />}
+                        title="Smart Budget Planning"
+                        description="Create dynamic budgets based on your goals, spending behavior, and income trends with AI suggestions."
+                    />
                 </div>
             </div>
         </section>
