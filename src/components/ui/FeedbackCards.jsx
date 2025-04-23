@@ -5,7 +5,7 @@ const feedbacks = [
     {
         name: "Suresh Dhamnkar",
         title: "Happy Customer",
-        feedback: "Financial AI has been a game changer for me. I finally feel in control of my finances and am making real progress towards my goals!",
+        feedback: "उपयोग करना आसान और समझने योग्य। बजट नियोजनकर्ता मुझे मेरे लक्ष्यों पर टिके रहने में मदद करता है। यह एक उत्कृष्ट उत्पाद है!",
         image: "https://th.bing.com/th/id/OIP.Ee7pg-0WD9WBjBCeoEhxrwHaLZ?w=810&h=1246&rs=1&pid=ImgDetMain"
     },
     {
