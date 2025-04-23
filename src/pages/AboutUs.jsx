@@ -68,7 +68,7 @@ function AboutPage() {
                             <div className="relative w-full h-[400px] overflow-hidden rounded-lg shadow-xl">
                                 <Fade duration={750} delay={300}>
                                     <img
-                                        src="https://www.biznews.com/wp-content/uploads/2022/07/Money-financial-services.jpg" // Replaced with a valid URL, you can change it
+                                        src="https://img.freepik.com/premium-photo/financial-speculation-trends_810293-34344.jpg" // Replaced with a valid URL, you can change it
                                         alt="Financial AI Illustration"
                                         className="absolute top-0 left-0 w-full h-full object-cover"
                                         style={imageTransformStyle}
