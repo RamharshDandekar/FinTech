@@ -20,7 +20,7 @@ const ChatbotPage = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for sidebar visibility - initially closed on mobile
     const [isPricingDialogOpen, setIsPricingDialogOpen] = useState(false); // State for pricing dialog
-    const [language, setLanguage] = useState('en-IN'); // Added language state, default to English (India)
+    const [language, setLanguage] = useState('en-US'); // Added language state, default to English (India)
 
 
     // --- SYSTEM PROMPT ---
