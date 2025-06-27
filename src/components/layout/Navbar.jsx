@@ -66,13 +66,13 @@ function Navbar() {
             <div className="container mx-auto px-6 py-4 flex justify-between items-center">
                 {/* Logo - Only visible on Desktop */}
                 <Link to="/" className="flex items-center cursor-pointer hidden md:flex"> {/* HIDDEN on mobile */}
-                    <img src="./logo.png" alt="Financial AI Logo" className="h-8 mr-2" />
+                    <img src="./Logo.png" alt="Financial AI Logo" className="h-8 mr-2" />
                     <span className="font-bold text-xl text-blue-600">FInTech</span>
                 </Link>
 
                 {/* Logo - Only visible on Mobile - Inside Mobile Menu Button Area */}
                 <Link to="/" className="flex items-center cursor-pointer md:hidden"> {/* VISIBLE on mobile */}
-                    <img src="./logo.png" alt="Financial AI Logo" className="h-8 mr-2" />
+                    <img src="./Logo.png" alt="Financial AI Logo" className="h-8 mr-2" />
                     <span className="font-bold text-xl text-blue-600">FInTech</span>
                 </Link>
 
