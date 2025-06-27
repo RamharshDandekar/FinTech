@@ -67,13 +67,13 @@ function Navbar() {
                 {/* Logo - Only visible on Desktop */}
                 <Link to="/" className="flex items-center cursor-pointer hidden md:flex"> {/* HIDDEN on mobile */}
                     <img src="./Logo.png" alt="Financial AI Logo" className="h-8 mr-2" />
-                    <span className="font-bold text-xl text-blue-600">FInTech</span>
+                    <span className="font-bold text-xl text-black">FinoAddWise</span>
                 </Link>
 
                 {/* Logo - Only visible on Mobile - Inside Mobile Menu Button Area */}
                 <Link to="/" className="flex items-center cursor-pointer md:hidden"> {/* VISIBLE on mobile */}
                     <img src="./Logo.png" alt="Financial AI Logo" className="h-8 mr-2" />
-                    <span className="font-bold text-xl text-blue-600">FInTech</span>
+                    <span className="font-bold text-xl text-black">FinoAddWise</span>
                 </Link>
 
 
