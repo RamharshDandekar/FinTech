@@ -3,9 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
     BanknotesIcon,
-    ChartBarSquareIcon,
     DocumentChartBarIcon,
-    MagnifyingGlassIcon,
     QuestionMarkCircleIcon,
     Bars3Icon, // Hamburger Icon
     XMarkIcon, // Close Icon
@@ -14,7 +12,7 @@ import {
     TrophyIcon,
     ShoppingCartIcon,
 } from '@heroicons/react/24/outline';
-import { useAuth, SignOutButton } from '@clerk/clerk-react'; // Import useAuth and SignOutButton
+import { useAuth, SignOutButton } from '@clerk/clerk-react';
 
 function Navbar() {
     const [isDesktopDropdownOpen, setIsDesktopDropdownOpen] = useState(false);
@@ -59,23 +57,23 @@ function Navbar() {
             document.removeEventListener('mousedown', handleClickOutsideDropdown);
             document.removeEventListener('mousedown', handleClickOutsideMobileMenu);
         };
-    }, [isDesktopDropdownOpen, isMobileMenuOpen, dropdownRef, mobileMenuRef]);
+    }, [isDesktopDropdownOpen, isMobileMenuOpen]); // Removed refs from dependency array
+
 
     return (
-        <nav className="bg-white shadow-md sticky top-0 z-50"> {/* Sticky navbar */}
+        <nav className="bg-white shadow-md sticky top-0 z-50">
             <div className="container mx-auto px-6 py-4 flex justify-between items-center">
                 {/* Logo - Only visible on Desktop */}
-                <Link to="/" className="flex items-center cursor-pointer hidden md:flex"> {/* HIDDEN on mobile */}
+                <Link to="/" className="flex items-center cursor-pointer hidden md:flex">
                     <img src="./Logo.png" alt="Financial AI Logo" className="h-8 mr-2" />
                     <span className="font-bold text-xl text-black">FinoAddWise</span>
                 </Link>
 
-                {/* Logo - Only visible on Mobile - Inside Mobile Menu Button Area */}
-                <Link to="/" className="flex items-center cursor-pointer md:hidden"> {/* VISIBLE on mobile */}
+                {/* Logo - Only visible on Mobile */}
+                <Link to="/" className="flex items-center cursor-pointer md:hidden">
                     <img src="./Logo.png" alt="Financial AI Logo" className="h-8 mr-2" />
                     <span className="font-bold text-xl text-black">FinoAddWise</span>
                 </Link>
-
 
                 {/* Mobile Menu Button */}
                 <div className="md:hidden flex items-center">
@@ -88,8 +86,16 @@ function Navbar() {
                 <div className="hidden md:flex items-center space-x-8">
                     <Link to="/home" className="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors duration-300">Home</Link>
                     <div className="relative" ref={dropdownRef}>
-                        <button onClick={toggleDesktopDropdown} className="text-gray-700 hover:text-blue-600 focus:outline-none flex items-center cursor-pointer transition-colors duration-300" aria-expanded={isDesktopDropdownOpen} aria-haspopup="true">
-                            Features <svg className={`w-4 h-4 ml-1 transition-transform duration-300 ${isDesktopDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <button
+                            onClick={toggleDesktopDropdown}
+                            className="text-gray-700 hover:text-blue-600 focus:outline-none flex items-center cursor-pointer transition-colors duration-300"
+                            aria-expanded={isDesktopDropdownOpen}
+                            aria-haspopup="true"
+                        >
+                            Features
+                            <svg className={`w-4 h-4 ml-1 transition-transform duration-300 ${isDesktopDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
                         </button>
                         <div className={`absolute ${isDesktopDropdownOpen ? 'block' : 'hidden'} mt-2 py-2 w-56 bg-white border rounded-md shadow-xl z-10 transform opacity-0 scale-95 transition-all duration-300 ${isDesktopDropdownOpen ? 'opacity-100 scale-100' : ''}`}>
                             <Link to="/financial-advice" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={closeDesktopDropdown}>
@@ -101,7 +107,7 @@ function Navbar() {
                             <Link to="/budget-planner" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={closeDesktopDropdown}>
                                 <BanknotesIcon className="h-5 w-5 text-gray-500" /> <span>Budget Planner</span>
                             </Link>
-                             <Link to="/contact" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={closeDesktopDropdown}>
+                            <Link to="/contact" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={closeDesktopDropdown}>
                                 <ChatBubbleLeftRightIcon className="h-5 w-5 text-gray-500" /> <span>Contact</span>
                             </Link>
                              <Link to="/pricing" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={closeDesktopDropdown}>
@@ -111,9 +117,11 @@ function Navbar() {
                     </div>
                     <Link to="/about" className="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors duration-300">About</Link>
                     <Link to="/team" className="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors duration-300">Team</Link>
+                    <Link to="/contact" className="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors duration-300">Contact</Link>
+                    <Link to="/pricing" className="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors duration-300">Pricing</Link>
                 </div>
 
-                 {/* Auth Buttons (Desktop) */}
+                {/* Auth Buttons (Desktop) */}
                 <div className="hidden md:flex items-center space-x-4">
                     {isSignedIn ? (
                         <SignOutButton>
@@ -128,14 +136,14 @@ function Navbar() {
                 </div>
             </div>
 
-            {/* Mobile Menu - Full Width, Top Aligned List Style - UPDATED for Single Navbar */}
-            <div ref={mobileMenuRef} className={`md:hidden absolute top-full left-0 right-0 bg-white shadow-md z-20 transform transition-all duration-300 origin-top ${isMobileMenuOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
-                 {/* Mobile Menu Header - Removed Close Button - UPDATED */}
-
-                {/* Mobile Menu Auth Links - Moved to be below Header - UPDATED */}
+            {/* Mobile Menu */}
+            <div
+                ref={mobileMenuRef}
+                className={`md:hidden absolute top-full left-0 right-0 bg-white shadow-md z-20 transform transition-all duration-300 origin-top ${isMobileMenuOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
+            >
                 <div className="px-6 py-3 border-b border-gray-200">
                     {!isSignedIn ? (
-                        <div className="flex justify-around text-gray-700 ">
+                        <div className="flex justify-around text-gray-700">
                             <Link to="/sign-up" className="hover:text-blue-600 cursor-pointer transition-colors duration-300 py-2 block text-center" onClick={closeMobileMenu}>Sign up</Link>
                             <Link to="/sign-in" className="hover:text-blue-600 cursor-pointer transition-colors duration-300 py-2 block text-center" onClick={closeMobileMenu}>Sign in</Link>
                         </div>
@@ -144,18 +152,17 @@ function Navbar() {
                     )}
                 </div>
 
-
-                {/* Mobile Menu Body - List of Links - UPDATED - Includes ALL Desktop Links */}
                 <nav className="py-2 px-6">
                     <Link to="/home" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
                         <ListBulletIcon className="h-5 w-5 text-gray-500" /> <span>Home</span>
                     </Link>
-                    {/* Features Dropdown in Mobile Menu - Kept Dropdown Functionality */}
+
+                    {/* Features Dropdown in Mobile Menu - Copy of Desktop Dropdown */}
                     <div className="relative">
                         <button
-                            onClick={toggleDesktopDropdown}
+                            onClick={toggleDesktopDropdown}  // Use the same toggle as Desktop
                             className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 focus:outline-none flex items-center justify-between w-full cursor-pointer transition-colors duration-300"
-                            aria-expanded={isDesktopDropdownOpen}
+                            aria-expanded={isDesktopDropdownOpen} // Use the same state as Desktop
                             aria-haspopup="true"
                         >
                             <div className="flex items-center space-x-3">
@@ -167,13 +174,13 @@ function Navbar() {
                             <Link to="/financial-advice" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={() => { closeDesktopDropdown(); closeMobileMenu(); }}>
                                 <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" /> <span>Financial Advice</span>
                             </Link>
-                             <Link to="/pdf-risk-analysis" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={() => { closeDesktopDropdown(); closeMobileMenu(); }}>
+                            <Link to="/pdf-risk-analysis" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={() => { closeDesktopDropdown(); closeMobileMenu(); }}>
                                 <DocumentChartBarIcon className="h-5 w-5 text-gray-500" /> <span>PDF Risk Analysis</span>
                             </Link>
                             <Link to="/budget-planner" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={() => { closeDesktopDropdown(); closeMobileMenu(); }}>
                                 <BanknotesIcon className="h-5 w-5 text-gray-500" /> <span>Budget Planner</span>
-                             </Link>
-                             <Link to="/contact" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={() => { closeDesktopDropdown(); closeMobileMenu(); }}>
+                            </Link>
+                            <Link to="/contact" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={() => { closeDesktopDropdown(); closeMobileMenu(); }}>
                                 <ChatBubbleLeftRightIcon className="h-5 w-5 text-gray-500" /> <span>Contact</span>
                             </Link>
                              <Link to="/pricing" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={() => { closeDesktopDropdown(); closeMobileMenu(); }}>
@@ -181,13 +188,14 @@ function Navbar() {
                             </Link>
                         </div>
                     </div>
+
                     <Link to="/about" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
-                        <DocumentChartBarIcon className="h-5 w-5 text-gray-500" /> <span>About</span>
+                        <ListBulletIcon className="h-5 w-5 text-gray-500" /> <span>About</span>
                     </Link>
                     <Link to="/team" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
-                        <TrophyIcon className="h-5 w-5 text-gray-500" /> <span>Team</span>
+                        <ListBulletIcon className="h-5 w-5 text-gray-500" /> <span>Team</span>
                     </Link>
-                     <Link to="/contact" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
+                    <Link to="/contact" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
                         <ChatBubbleLeftRightIcon className="h-5 w-5 text-gray-500" /> <span>Contact</span>
                     </Link>
                      <Link to="/pricing" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
