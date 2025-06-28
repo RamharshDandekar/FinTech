@@ -12,7 +12,7 @@ import {
     TrophyIcon,
     ShoppingCartIcon,
 } from '@heroicons/react/24/outline';
-import { useAuth, SignOutButton, SignInButton, UserButton } from '@clerk/clerk-react'; // Added SignInButton and UserButton
+import { useAuth, SignOutButton, SignInButton, UserButton, SignUpButton } from '@clerk/clerk-react'; // Added SignInButton and UserButton
 
 function Navbar() {
     const [isDesktopDropdownOpen, setIsDesktopDropdownOpen] = useState(false);
@@ -59,6 +59,7 @@ function Navbar() {
         };
     }, [isDesktopDropdownOpen, isMobileMenuOpen]); // Removed refs from dependency array
 
+    const signUpButtonStyle = "bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer transition-colors block w-full text-center";
 
     return (
         <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -98,13 +99,13 @@ function Navbar() {
                             </svg>
                         </button>
                         <div className={`absolute ${isDesktopDropdownOpen ? 'block' : 'hidden'} mt-2 py-2 w-56 bg-white border rounded-md shadow-xl z-10 transform opacity-0 scale-95 transition-all duration-300 ${isDesktopDropdownOpen ? 'opacity-100 scale-100' : ''}`}>
-                            <Link to="/financial-advice" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={closeDesktopDropdown}>
+                            <Link to="/financial-advice" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={closeDesktopDropdown}>
                                 <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" /> <span>Financial Advice</span>
                             </Link>
-                            <Link to="/pdf-risk-analysis" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={closeDesktopDropdown}>
+                            <Link to="/pdf-risk-analysis" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={closeDesktopDropdown}>
                                 <DocumentChartBarIcon className="h-5 w-5 text-gray-500" /> <span>PDF Risk Analysis</span>
                             </Link>
-                            <Link to="/budget-planner" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={closeDesktopDropdown}>
+                            <Link to="/budget-planner" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={closeDesktopDropdown}>
                                 <BanknotesIcon className="h-5 w-5 text-gray-500" /> <span>Budget Planner</span>
                             </Link>
 
@@ -114,12 +115,17 @@ function Navbar() {
                     <Link to="/team" className="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors duration-300">Team</Link>
                 </div>
 
-                {/* Auth Buttons (Desktop) - UNCHANGED */}
+                {/* Auth Buttons (Desktop) */}
                 <div className="hidden md:flex items-center space-x-4">
                     {isSignedIn ? (
                         <UserButton afterSignOutUrl="/" />
                     ) : (
-                        <SignInButton>Sign In</SignInButton>
+                        <>
+                           <div className="flex-shrink-0">
+                                <SignInButton afterSignInUrl="/" className="block text-center bg-white text-gray-700 py-2 px-4 rounded-full cursor-pointer transition-colors hover:bg-gray-100">Sign In</SignInButton>
+                            </div>
+                            <SignUpButton afterSignUpUrl="/" className={signUpButtonStyle}>Sign Up</SignUpButton>
+                        </>
                     )}
                 </div>
             </div>
@@ -130,29 +136,32 @@ function Navbar() {
                 className={`md:hidden absolute top-full left-0 right-0 bg-white shadow-md z-20 transform transition-all duration-300 origin-top ${isMobileMenuOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
             >
                 <nav className="py-2 px-6">
-                    <Link to="/home" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
+                    <Link to="/home" className="block py-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
                         <ListBulletIcon className="h-5 w-5 text-gray-500" /> <span>Home</span>
                     </Link>
-                    <Link to="/financial-advice" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
+                    <Link to="/financial-advice" className="block py-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
                         <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" /> <span>Financial Advice</span>
                     </Link>
-                    <Link to="/pdf-risk-analysis" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
+                    <Link to="/pdf-risk-analysis" className="block py-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
                         <DocumentChartBarIcon className="h-5 w-5 text-gray-500" /> <span>PDF Risk Analysis</span>
                     </Link>
-                    <Link to="/budget-planner" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
+                    <Link to="/budget-planner" className="block py-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
                         <BanknotesIcon className="h-5 w-5 text-gray-500" /> <span>Budget Planner</span>
                     </Link>
-                    <Link to="/about" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
+                    <Link to="/about" className="block py-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
                         <ListBulletIcon className="h-5 w-5 text-gray-500" /> <span>About</span>
                     </Link>
-                    <Link to="/team" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
+                    <Link to="/team" className="block py-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
                         <ListBulletIcon className="h-5 w-5 text-gray-500" /> <span>Team</span>
                     </Link>
 
                     {isSignedIn ? (
                         <UserButton afterSignOutUrl="/" onClick={closeMobileMenu} />
                     ) : (
-                        <SignInButton afterSignInUrl="/" onClick={closeMobileMenu}>Sign In</SignInButton>
+                        <div className="flex flex-col space-y-2">
+                            <SignInButton afterSignInUrl="/" onClick={closeMobileMenu} className="block w-full text-center">Sign In</SignInButton>
+                            <SignUpButton afterSignUpUrl="/" onClick={closeMobileMenu} className={signUpButtonStyle}>Sign Up</SignUpButton>
+                        </div>
                     )}
                 </nav>
             </div>
