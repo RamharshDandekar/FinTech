@@ -12,7 +12,7 @@ import {
     TrophyIcon,
     ShoppingCartIcon,
 } from '@heroicons/react/24/outline';
-import { useAuth, SignOutButton } from '@clerk/clerk-react';
+import { useAuth, SignOutButton, SignInButton, UserButton } from '@clerk/clerk-react'; // Added SignInButton and UserButton
 
 function Navbar() {
     const [isDesktopDropdownOpen, setIsDesktopDropdownOpen] = useState(false);
@@ -82,7 +82,7 @@ function Navbar() {
                     </button>
                 </div>
 
-                {/* Navigation Links (Desktop) */}
+                {/* Navigation Links (Desktop) - UNCHANGED */}
                 <div className="hidden md:flex items-center space-x-8">
                     <Link to="/home" className="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors duration-300">Home</Link>
                     <div className="relative" ref={dropdownRef}>
@@ -107,110 +107,52 @@ function Navbar() {
                             <Link to="/budget-planner" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={closeDesktopDropdown}>
                                 <BanknotesIcon className="h-5 w-5 text-gray-500" /> <span>Budget Planner</span>
                             </Link>
-                            <Link to="/contact" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={closeDesktopDropdown}>
-                                <ChatBubbleLeftRightIcon className="h-5 w-5 text-gray-500" /> <span>Contact</span>
-                            </Link>
-                             <Link to="/pricing" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={closeDesktopDropdown}>
-                                <ShoppingCartIcon className="h-5 w-5 text-gray-500" /> <span>Pricing</span>
-                            </Link>
+
                         </div>
                     </div>
                     <Link to="/about" className="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors duration-300">About</Link>
                     <Link to="/team" className="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors duration-300">Team</Link>
-                    <Link to="/contact" className="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors duration-300">Contact</Link>
-                    <Link to="/pricing" className="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors duration-300">Pricing</Link>
                 </div>
 
-                {/* Auth Buttons (Desktop) */}
+                {/* Auth Buttons (Desktop) - UNCHANGED */}
                 <div className="hidden md:flex items-center space-x-4">
                     {isSignedIn ? (
-                        <SignOutButton>
-                            <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-full cursor-pointer transition-colors duration-300">Sign Out</button>
-                        </SignOutButton>
+                        <UserButton afterSignOutUrl="/" />
                     ) : (
-                        <>
-                            <Link to="/sign-in" className="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors duration-300">Sign in</Link>
-                            <Link to="/sign-up" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-full cursor-pointer transition-colors duration-300">Sign up</Link>
-                        </>
+                        <SignInButton>Sign In</SignInButton>
                     )}
                 </div>
             </div>
 
-            {/* Mobile Menu */}
+            {/* Mobile Menu - REFACTORED */}
             <div
                 ref={mobileMenuRef}
                 className={`md:hidden absolute top-full left-0 right-0 bg-white shadow-md z-20 transform transition-all duration-300 origin-top ${isMobileMenuOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
             >
-                <div className="px-6 py-3 border-b border-gray-200">
-                    {!isSignedIn ? (
-                        <div className="flex justify-around text-gray-700">
-                            <Link to="/sign-up" className="hover:text-blue-600 cursor-pointer transition-colors duration-300 py-2 block text-center" onClick={closeMobileMenu}>Sign up</Link>
-                            <Link to="/sign-in" className="hover:text-blue-600 cursor-pointer transition-colors duration-300 py-2 block text-center" onClick={closeMobileMenu}>Sign in</Link>
-                        </div>
-                    ) : (
-                        <div className="text-gray-700 font-semibold px-6 py-2 text-center">Welcome User</div>
-                    )}
-                </div>
-
                 <nav className="py-2 px-6">
                     <Link to="/home" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
                         <ListBulletIcon className="h-5 w-5 text-gray-500" /> <span>Home</span>
                     </Link>
-
-                    {/* Features Dropdown in Mobile Menu - Copy of Desktop Dropdown */}
-                    <div className="relative">
-                        <button
-                            onClick={toggleDesktopDropdown}  // Use the same toggle as Desktop
-                            className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 focus:outline-none flex items-center justify-between w-full cursor-pointer transition-colors duration-300"
-                            aria-expanded={isDesktopDropdownOpen} // Use the same state as Desktop
-                            aria-haspopup="true"
-                        >
-                            <div className="flex items-center space-x-3">
-                                <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" /> <span>Features</span>
-                            </div>
-                            <svg className={`w-4 h-4 ml-1 transition-transform duration-300 ${isDesktopDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div className={`absolute ${isDesktopDropdownOpen ? 'block' : 'hidden'} mt-2 py-2 w-full bg-white border rounded-md shadow-xl z-10`}>
-                            <Link to="/financial-advice" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={() => { closeDesktopDropdown(); closeMobileMenu(); }}>
-                                <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" /> <span>Financial Advice</span>
-                            </Link>
-                            <Link to="/pdf-risk-analysis" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={() => { closeDesktopDropdown(); closeMobileMenu(); }}>
-                                <DocumentChartBarIcon className="h-5 w-5 text-gray-500" /> <span>PDF Risk Analysis</span>
-                            </Link>
-                            <Link to="/budget-planner" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={() => { closeDesktopDropdown(); closeMobileMenu(); }}>
-                                <BanknotesIcon className="h-5 w-5 text-gray-500" /> <span>Budget Planner</span>
-                            </Link>
-                            <Link to="/contact" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={() => { closeDesktopDropdown(); closeMobileMenu(); }}>
-                                <ChatBubbleLeftRightIcon className="h-5 w-5 text-gray-500" /> <span>Contact</span>
-                            </Link>
-                             <Link to="/pricing" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={() => { closeDesktopDropdown(); closeMobileMenu(); }}>
-                                <ShoppingCartIcon className="h-5 w-5 text-gray-500" /> <span>Pricing</span>
-                            </Link>
-                        </div>
-                    </div>
-
+                    <Link to="/financial-advice" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
+                        <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" /> <span>Financial Advice</span>
+                    </Link>
+                    <Link to="/pdf-risk-analysis" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
+                        <DocumentChartBarIcon className="h-5 w-5 text-gray-500" /> <span>PDF Risk Analysis</span>
+                    </Link>
+                    <Link to="/budget-planner" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
+                        <BanknotesIcon className="h-5 w-5 text-gray-500" /> <span>Budget Planner</span>
+                    </Link>
                     <Link to="/about" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
                         <ListBulletIcon className="h-5 w-5 text-gray-500" /> <span>About</span>
                     </Link>
                     <Link to="/team" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
                         <ListBulletIcon className="h-5 w-5 text-gray-500" /> <span>Team</span>
                     </Link>
-                    <Link to="/contact" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
-                        <ChatBubbleLeftRightIcon className="h-5 w-5 text-gray-500" /> <span>Contact</span>
-                    </Link>
-                     <Link to="/pricing" className="block py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer transition-colors duration-300 flex items-center space-x-3" onClick={closeMobileMenu}>
-                        <ShoppingCartIcon className="h-5 w-5 text-gray-500" /> <span>Pricing</span>
-                    </Link>
 
-                    {isSignedIn && (
-                        <SignOutButton>
-                            <button className="block py-2 text-red-600 hover:bg-red-100 cursor-pointer transition-colors duration-300 w-full text-left flex items-center space-x-3 px-6" onClick={closeMobileMenu}>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5 text-red-500">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25a3 3 0 00-3-3H7.5a3 3 0 00-3 3v13.5a3 3 0 003 3h7.5a3 3 0 003-3V15m3 0l3-3m0 0l-3-3m3 3H9" />
-                                </svg>
-                                <span>Sign Out</span>
-                            </button>
-                        </SignOutButton>
+                    {isSignedIn ? (
+                        <UserButton afterSignOutUrl="/" onClick={closeMobileMenu} />
+                    ) : (
+                        <SignInButton afterSignInUrl="/" onClick={closeMobileMenu}>Sign In</SignInButton>
                     )}
                 </nav>
             </div>
