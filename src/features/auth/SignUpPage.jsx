@@ -1,13 +1,12 @@
-// src/pages/SignInPage.jsx
 import React from 'react';
-import { SignIn } from '@clerk/clerk-react';
+import { SignUp } from '@clerk/clerk-react'; // Correct import for React
 
-function SignInPage() {
+function SignUpPage() {
   return (
     <div className="flex justify-center items-center h-screen bg-gray-50">
-        <SignIn />
+      <SignUp afterSignUpUrl="/" /> {/* Redirect after sign-up using Clerk's prop */}
     </div>
   );
 }
 
-export default SignInPage;
+export default SignUpPage;
