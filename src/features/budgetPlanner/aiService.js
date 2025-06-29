@@ -7,7 +7,7 @@ let genAI;
 let model;
 
 // --- CHANGE THIS AS NEEDED ---
-const STABLE_MODEL_NAME = "gemini-1.5-pro";
+const STABLE_MODEL_NAME = "gemini-2.5-pro";
 // const STABLE_MODEL_NAME = "gemini-1.5-flash-latest";
 // const STABLE_MODEL_NAME = "gemini-pro";
 
