@@ -109,7 +109,7 @@ const BudgetReport = ({ report, loading, isInitialized, error, modelUsedForInit 
       </div>
       {isInitialized && modelUsedForInit && (
         <p className="text-xs text-gray-500 text-center mb-4">
-          Using AI Model: {modelUsedForInit}
+          Using AI Model: IBM AI
         </p>
       )}
       <div className="prose prose-sm sm:prose lg:prose-lg max-w-none min-h-[200px] text-gray-700" ref={reportRef}> {/* Add ref to this div */}
